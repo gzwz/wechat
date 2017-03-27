@@ -1,0 +1,73 @@
+#include "iteminfo.h"
+#include "ui_iteminfo.h"
+#include <QDebug>
+#include <QMessageBox>
+#include <QPainter>
+#include <QPalette>
+
+ItemInfo::ItemInfo(QString id,QString headPicUrl,QString niceName,QString signName,QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::ItemInfo)
+{
+    ui->setupUi(this);
+    ui->label_pic->setPixmap(QPixmap(headPicUrl));
+    ui->label_name->setText(niceName);
+    ui->label_signal->setText(signName);
+
+    this->id = id;
+    this->headPicUrl = headPicUrl;
+    this->niceName = niceName;
+    this->signName = signName;
+
+    connect(this,&ItemInfo::beClickedMe,this,&ItemInfo::initStyle);
+
+}
+
+ItemInfo::~ItemInfo()
+{
+    delete ui;
+}
+
+void ItemInfo::initStyle(QString id)
+{
+    this->setStyleSheet("");
+}
+
+void ItemInfo::mousePressEvent(QMouseEvent *e)
+{
+    if (e->button() == Qt::LeftButton) {
+
+        qDebug()<<"mousePressEvent";
+        this->setStyleSheet("background-color:rgb(188,219,198)");
+        clickedId = id;
+        emit beClickedMe(id);
+    }
+
+}
+
+void ItemInfo::enterEvent(QEvent *)
+{
+    QString style = this->styleSheet();
+    if (style.length() > 0) {  //说明已经有样式了
+
+    }else {
+        this->setStyleSheet("background-color:rgb(216,219,222)");
+    }
+}
+
+void ItemInfo::leaveEvent(QEvent *)
+{
+    if (clickedId == this->id) {
+        QString style = this->styleSheet();
+        if (style.length() > 0) {  //说明已经有样式了
+
+        }else {
+            this->setStyleSheet("background-color:rgb(188,219,198)");
+        }
+    }else{
+    this->setStyleSheet("");
+    }
+
+}
+
+

@@ -1,0 +1,29 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>img/background.jpg</file>
+        <file>img/background3.jpg</file>
+        <file>img/icon_close_gray_button.png</file>
+        <file>img/icon_close_red_button.png</file>
+        <file>img/tx.jpg</file>
+        <file>img/tx2.jpg</file>
+        <file>img/1.ico</file>
+        <file>img/ala.png</file>
+        <file>img/as1.png</file>
+        <file>img/as2.png</file>
+        <file>img/au4.png</file>
+        <file>img/avi.png</file>
+        <file>img/friend_list_01.bmp</file>
+        <file>img/logo.png</file>
+        <file>img/2.ico</file>
+        <file>img/setting_01.png</file>
+        <file>img/setting_02.png</file>
+        <file>img/friend01.png</file>
+        <file>img/friend02.png</file>
+        <file>img/chatNow01.png</file>
+        <file>img/chatNow02.png</file>
+        <file>img/emoji/smile.png</file>
+        <file>img/emoji/smile01.png</file>
+        <file>img/msgbaseBox01.png</file>
+        <file>img/msgbaseBox02.png</file>
+    </qresource>
+</RCC>
