@@ -24,7 +24,7 @@ QList<User *> UserDao::getUserList()
         user->setName(query.value(1).toString());
         user->setPwd(query.value(2).toString());
         user->setNickName(query.value(3).toString());
-        user->setCateTime(query.value(4).toDate());
+        user->setCateTime(query.value(4).toString());
         user->setPhone(query.value(5).toString());
         user->setEmail(query.value(6).toString());
         user->setSignature(query.value(7).toString());
@@ -54,7 +54,7 @@ QList<User *> UserDao::getChatNowUserList()
         user->setName(query.value(1).toString());
         user->setPwd(query.value(2).toString());
         user->setNickName(query.value(3).toString());
-        user->setCateTime(query.value(4).toDate());
+        user->setCateTime(query.value(4).toString());
         user->setPhone(query.value(5).toString());
         user->setEmail(query.value(6).toString());
         user->setSignature(query.value(7).toString());

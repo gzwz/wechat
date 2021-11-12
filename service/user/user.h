@@ -11,9 +11,6 @@ class User
 public:
     User();
 
-
-
-
     QString getId() const;
     void setId(const QString &value);
 
@@ -28,6 +25,7 @@ public:
 
     QString getSignature() const;
     void setSignature(const QString &value);
+
 
     QString getGrade() const;
     void setGrade(const QString &value);
@@ -55,7 +53,6 @@ private:
     QString email;      //  邮箱
     QString phone;      //  电话
     QString headPicture;//  头像
-
 
 
 };

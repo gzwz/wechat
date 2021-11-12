@@ -6,14 +6,14 @@
 
 ListWidget_chatNow::ListWidget_chatNow(QWidget *parent) : QListWidget(parent)
 {
-    chatnowList = userDao.getChatNowUserList();
-    //初始化当前ListView
-    for (int i = 0; i < chatnowList.size(); ++i) {
-        QListWidgetItem *nitem = new QListWidgetItem(this);
-        nitem->setSizeHint(QSize(0,60));
-        ItemInfo *item = new ItemInfo(QString(i),chatnowList.at(i)->getHeadPicture(),chatnowList.at(i)->getNickName(),chatnowList.at(i)->getSignature(),this);
-        this->setItemWidget(nitem,item);
-    }
+//    chatnowList = userDao.getChatNowUserList();
+//    //初始化当前ListView
+//    for (int i = 0; i < chatnowList.size(); ++i) {
+//        QListWidgetItem *nitem = new QListWidgetItem(this);
+//        nitem->setSizeHint(QSize(0,60));
+//        ItemInfo *item = new ItemInfo(QString(i),chatnowList.at(i)->getHeadPicture(),chatnowList.at(i)->getNickName(),chatnowList.at(i)->getSignature(),this);
+//        this->setItemWidget(nitem,item);
+//    }
     connect(this,&ListWidget_chatNow::itemClicked,this,&ListWidget_chatNow::dealItemClicked);
 
 }

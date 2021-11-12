@@ -28,7 +28,7 @@ protected:
 private:
     //ItemInfo item;
     QList <User*> chatnowList;
-    UserDao userDao;
+    //UserDao userDao;
 };
 
 #endif // LISTWIDGET_CHATNOW_H

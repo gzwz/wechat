@@ -3,13 +3,13 @@
 ListWidget_friends::ListWidget_friends(QWidget *parent) : QListWidget(parent)
 {
 
-    uList = userDao.getUserList();
-    for (int i = 0; i < uList.size(); ++i) {
-        QListWidgetItem *nitem = new QListWidgetItem(this);
-        nitem->setSizeHint(QSize(0,60));
-        ItemInfo *item = new ItemInfo(QString(i),uList.at(i)->getHeadPicture(),uList.at(i)->getNickName(),uList.at(i)->getSignature(),this);
-        this->setItemWidget(nitem,item);
-    }
+//    uList = userDao.getUserList();
+//    for (int i = 0; i < uList.size(); ++i) {
+//        QListWidgetItem *nitem = new QListWidgetItem(this);
+//        nitem->setSizeHint(QSize(0,60));
+//        ItemInfo *item = new ItemInfo(QString(i),uList.at(i)->getHeadPicture(),uList.at(i)->getNickName(),uList.at(i)->getSignature(),this);
+//        this->setItemWidget(nitem,item);
+//    }
 
     connect(this,&ListWidget_friends::itemClicked,this,&ListWidget_friends::dealItemClicked);
 }

@@ -19,7 +19,9 @@ SOURCES += main.cpp\
     socket/mytcpserver.cpp \
     socket/mytcpsocket.cpp \
     user/userdao.cpp \
-    db/dbutil.cpp
+    db/dbutil.cpp \
+    user/user.cpp \
+    user/friendship.cpp
 
 
 
@@ -27,7 +29,9 @@ HEADERS  += mainwidget.h \
     socket/mytcpserver.h \
     socket/mytcpsocket.h \
     user/userdao.h \
-    db/dbutil.h
+    db/dbutil.h \
+    user/user.h \
+    user/friendship.h
 
 
 FORMS    += mainwidget.ui

@@ -15,49 +15,50 @@ MainWidget::MainWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainWidget)
 {
-
     ui->setupUi(this);
     ui->stopService->setEnabled(false);
-
-    DBUtil::getQSqlDatabase();
-//    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-//    db.setDatabaseName("E:/Qt/wechat/wechat.db");
-
-//    bool ok = db.open();
-//    qDebug()<<"数据库链接："<<ok;
-    QSqlQuery query;
-    bool isq = query.exec("SELECT * FROM user");
-    qDebug()<<"查询："<<isq;
-    while (query.next()) {
-       qDebug()<<query.value("id").toString()
-               <<query.value("username").toString();
-
-
-    }
-
 }
 
 MainWidget::~MainWidget()
 {
     delete ui;
-
 }
 
 
 void MainWidget::on_startService_clicked()
 {
     myServer = new MyTcpServer(this);
-    myServer->listen(QHostAddress::Any,9999);
+    myServer->listen(QHostAddress::Any,ui->port->text().toInt());
+    ui->status->setText("服务器开启");
+    connect(myServer,&MyTcpServer::oneConnected,[=](){
+        ui->onlineUserNum->display((ui->onlineUserNum->value())+1);
+    });
+    connect(myServer,&MyTcpServer::onedisconnect,[=](){
+        ui->onlineUserNum->display((ui->onlineUserNum->value())-1);
+    });
+    connect(myServer,&MyTcpServer::socketSay,this,&MainWidget::socketSay);
     ui->startService->setEnabled(false);
     ui->stopService->setEnabled(true);
 
 }
 void MainWidget::on_stopService_clicked()
 {
+    ui->onlineUserNum->display(0);
+    ui->status->setText("服务器关闭");
+    ui->onlineUserNum->display(0);
     ui->startService->setEnabled(true);
     ui->stopService->setEnabled(false);
+    myServer->close();
     myServer->destroyed();
+    delete myServer;
+    myServer = NULL;
 
+}
+
+void MainWidget::socketSay(const QByteArray &buf)
+{
+    ui->logshow->appendPlainText(QString(buf));
+    ui->logshow->appendPlainText(QString("----------------------"));
 }
 
 

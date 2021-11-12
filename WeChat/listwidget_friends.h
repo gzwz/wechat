@@ -25,7 +25,7 @@ public slots:
 
 private:
     QList <User*> uList;
-    UserDao userDao;
+   // UserDao userDao;
     //ItemInfo *item;
 
 };

@@ -45,7 +45,9 @@ HEADERS += \
     listwidget_friends.h \
     listwidget_chatmsgcontent.h \
     ui/rightmsgbox.h \
-    ui/chatbubbleown.h
+    ui/chatbubbleown.h \
+    net/socketmanager.h \
+    user/friendship.h
 
 SOURCES += \
     main.cpp \
@@ -65,5 +67,7 @@ SOURCES += \
     listwidget_friends.cpp \
     listwidget_chatmsgcontent.cpp \
     ui/rightmsgbox.cpp \
-    ui/chatbubbleown.cpp
+    ui/chatbubbleown.cpp \
+    net/socketmanager.cpp \
+    user/friendship.cpp
 

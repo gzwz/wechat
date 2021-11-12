@@ -19,9 +19,12 @@
 #include <QSqlDatabase>
 #include <db/dbutil.h>
 
+#include <QNetworkDatagram>
 
 
-MainWindow::MainWindow(User &u,QWidget *parent) :
+
+
+MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainWindow)
 {
@@ -34,26 +37,33 @@ MainWindow::MainWindow(User &u,QWidget *parent) :
     //初始化ListView 打开就显示chatnow页面
     ui->stackedWidget->setCurrentIndex(0);
     //
-    this->user = &u;
-    //初始化2个listview
-    //initListView();
-
-
-    socket = new QTcpSocket();
-    socket->connectToHost(QHostAddress("192.168.0.110"),9999,QTcpSocket::ReadWrite);
-    connect(socket,&QTcpSocket::connected,this,&MainWindow::connected);
-    connect(ui->listWidget_chatnow,&ListWidget_chatNow::oneUserbeClicked,this,&MainWindow::oneUserbeClicked);
-    connect(ui->listWidget_friends,&ListWidget_friends::oneUserbeClicked,this,&MainWindow::oneUserbeClicked);
-
+    initSocket();
 
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    if (socket != NULL) {
-        delete socket;
-        socket = NULL;
+}
+
+
+void MainWindow::initSocket()
+{
+    udpSocket = new QUdpSocket(this);
+    udpSocket->bind(QHostAddress::LocalHost,2425);
+    udpSocket->connectToHost("127.0.0.1",2425,QIODevice::ReadWrite);
+    QString str = "1:100:WINDX-PC:WINDX-PC:32:AAAAAA~~";
+    qDebug()<< str;
+    udpSocket->write(str.toUtf8());
+    udpSocket->flush();
+//    connect(udpSocket, SIGNAL(readyRead()),
+//                  this, SLOT(readPendingDatagrams()));
+}
+
+void MainWindow::readPendingDatagrams()
+{
+    while (udpSocket->hasPendingDatagrams()) {
+             QNetworkDatagram datagram = udpSocket->receiveDatagram();
     }
 }
 
@@ -63,22 +73,6 @@ void MainWindow::on_closeButton_clicked()
     this->destroy();
 
 }
-
-void MainWindow::connected()
-{
-
-    QJsonObject json;
-
-    //json.insert("name",QJsonValue(user.getName()));
-    //json.insert("pwd",QJsonValue(user.getPwd()));
-    QByteArray b = JsonSignal::getUserInfo(json);
-    socket->write(b.data());
-
-    QByteArray buf2 = socket->readAll();
-    qDebug()<<buf2;
-
-}
-
 void MainWindow::on_headportrait_clicked()
 {
     SelfUserInfo info(this);
@@ -95,7 +89,6 @@ void MainWindow::initbuttons()
 
 void MainWindow::on_b_chatNow_clicked()
 {
-    initbuttons();
     ui->b_chatNow->setIcon(QIcon(":/images/img/chatNow02.png"));
     ui->stackedWidget->setCurrentWidget(ui->chat_now);
 }

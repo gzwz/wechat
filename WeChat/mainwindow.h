@@ -9,6 +9,9 @@
 #include <user/user.h>
 #include <user/userdao.h>
 #include <listwidget_chatnow.h>
+#include <net/socketmanager.h>
+#include <user/friendship.h>
+#include <QUdpSocket>
 
 
 namespace Ui {
@@ -20,20 +23,22 @@ class MainWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit MainWindow(User &user,QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void initListView();
 
 private slots:
-    void on_closeButton_clicked();
-    void connected();
+    void initSocket();
 
-    void on_headportrait_clicked();
+    void initbuttons();
 
     void on_b_chatNow_clicked();
 
-    void initbuttons();
+    void on_headportrait_clicked();
+
+    void readPendingDatagrams();
+
+    void on_closeButton_clicked();
 
     void on_b_friendList_clicked();
 
@@ -43,14 +48,15 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QTcpSocket *socket = NULL;
-
+    QList<friendShip> * fris;
     QList<QWidget *> chatNowList;
+
+    QUdpSocket *udpSocket;
  //   ItemInfo *item;
  //   QList <User*> uList;
 
     User *user;
-    UserDao userDao;
+ //   UserDao userDao;
 
 };
 

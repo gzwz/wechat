@@ -5,6 +5,10 @@
 #include <mainwindow.h>
 #include <net/networker.h>
 #include <user/user.h>
+#include <net/socketmanager.h>
+#include <user/friendship.h>
+#include <QList>
+#include <QSystemTrayIcon>
 
 namespace Ui {
 class Widget;
@@ -26,17 +30,14 @@ private slots:
 
     void on_loginButton_clicked();
 
-    void startLogin(const QByteArray &buf);
-
     void on_errBackButton_clicked();
+
+    void activated(QSystemTrayIcon::ActivationReason reason);
 
 private:
     Ui::Widget *ui;
     MainWindow *mw;
     bool flag = false;
-    User *user;
-    NetWorker *net;
-
 };
 
 #endif // WIDGET_H
