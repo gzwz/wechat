@@ -13,7 +13,7 @@ MyTcpServer::MyTcpServer(QObject *parent) : QTcpServer(parent)
     clients = new QMap< qint32, MyTcpSocket *> ();
 }
 
-void MyTcpServer::incomingConnection( qint32 socketDescriptor)
+void MyTcpServer::incomingConnection( qint64 socketDescriptor)
 {
     qDebug()<<"有新的链接 -socketDescriptor-"<<socketDescriptor;
     MyTcpSocket *tcptemp = new MyTcpSocket(socketDescriptor);
@@ -35,7 +35,7 @@ void MyTcpServer::incomingConnection( qint32 socketDescriptor)
 }
 
 
-void MyTcpServer::receiveDataSlot(const qint32 socketDescriptor,const QByteArray &buf)
+void MyTcpServer::receiveDataSlot(const qint64 socketDescriptor,const QByteArray &buf)
 {
     //根据数据actionType 类型判断客服端行为
     //{\"actionType\":\"login\",\"data\":{\"name\":\"小明\",\"pwd\":\"123456\"}}
@@ -64,7 +64,7 @@ void MyTcpServer::receiveDataSlot(const qint32 socketDescriptor,const QByteArray
 
     }
 }
-void MyTcpServer::disconnectSlot( qint32 socketDescriptor)
+void MyTcpServer::disconnectSlot( qint64 socketDescriptor)
 {
     int i = clients->remove(socketDescriptor);
     qDebug()<<"删除客户端   i="<<i;

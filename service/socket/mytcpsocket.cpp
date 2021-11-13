@@ -1,6 +1,6 @@
 #include "mytcpsocket.h"
 
-MyTcpSocket::MyTcpSocket( qint32 socketDescriptor,QObject *parent) : QTcpSocket(parent)
+MyTcpSocket::MyTcpSocket( qint64 socketDescriptor,QObject *parent) : QTcpSocket(parent)
 {
     this->setSocketDescriptor(socketDescriptor);
 

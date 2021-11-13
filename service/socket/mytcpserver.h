@@ -23,8 +23,8 @@ signals:
     void socketSay(const QByteArray &buf);
 
 public slots:
-    void receiveDataSlot(const qint32 socketDescriptor,const QByteArray &buf);
-    void disconnectSlot(qint32 socketDescriptor);
+    void receiveDataSlot(const qint64 socketDescriptor,const QByteArray &buf);
+    void disconnectSlot(qint64 socketDescriptor);
 public:
     bool loginHandle(User &user,QList<friendShip> &friendList);
     QJsonObject toJson(User &user,QList<friendShip>  &friendList);

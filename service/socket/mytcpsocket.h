@@ -9,12 +9,12 @@ class MyTcpSocket : public QTcpSocket
 {
     Q_OBJECT
 public:
-    explicit MyTcpSocket( qint32 socketDescriptor,QObject *parent = 0);
+    explicit MyTcpSocket( qint64 socketDescriptor,QObject *parent = 0);
 
 signals:
-    void receiveData(qint32 socketDescriptor,const QByteArray &buf);
+    void receiveData(qint64 socketDescriptor,const QByteArray &buf);
 
-    void socketDisconnect( qint32 socketDescriptor);
+    void socketDisconnect( qint64 socketDescriptor);
 
 public slots:
 
