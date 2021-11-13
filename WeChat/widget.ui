@@ -56,7 +56,7 @@ border-radius:10px;padding:2px 4px;
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="autoFillBackground">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="styleSheet">
     <string notr="true">QWidget#mainWindwo{ 
@@ -100,7 +100,7 @@ background-position:center;
       </font>
      </property>
      <property name="text">
-      <string>微信</string>
+      <string>微聊</string>
      </property>
     </widget>
     <widget class="QPushButton" name="closeButton">
