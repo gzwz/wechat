@@ -49,13 +49,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::initSocket()
 {
-    udpSocket = new QUdpSocket(this);
-    udpSocket->bind(QHostAddress::LocalHost,2425);
-    udpSocket->connectToHost("127.0.0.1",2425,QIODevice::ReadWrite);
-    QString str = "1:100:WINDX-PC:WINDX-PC:32:AAAAAA~~";
-    qDebug()<< str;
-    udpSocket->write(str.toUtf8());
-    udpSocket->flush();
+
 //    connect(udpSocket, SIGNAL(readyRead()),
 //                  this, SLOT(readPendingDatagrams()));
 }
@@ -112,5 +106,23 @@ void MainWindow::oneUserbeClicked(User &user)
 //消息发送按钮
 void MainWindow::on_sendMessageButton_clicked()
 {
+
+    udpSocket = new QUdpSocket(this);
+    udpSocket->bind(QHostAddress::LocalHost,2425);
+    udpSocket->connectToHost("192.168.1.12",2425,QIODevice::ReadWrite);
+    QString str =  "1:100:WLZ:WLZ:32: %1 ";
+
+    QString msg = ui->msgContentEditArea->toPlainText();
+     qDebug()<<"发送的内容：" << msg;
+    str.arg(msg);
+
+    qDebug()<< str;
+
+    udpSocket->write(str.toUtf8());
+    udpSocket->flush();
+    udpSocket = new QUdpSocket(this);
+
     ui->msgContentEditArea->setText("");
+    ui->listWidget_chatMsgContent->addItem(msg);
+
 }

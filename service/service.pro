@@ -18,6 +18,7 @@ SOURCES += main.cpp\
         mainwidget.cpp \
     socket/mytcpserver.cpp \
     socket/mytcpsocket.cpp \
+    socket/myudpserver.cpp \
     user/userdao.cpp \
     db/dbutil.cpp \
     user/user.cpp \
@@ -28,6 +29,7 @@ SOURCES += main.cpp\
 HEADERS  += mainwidget.h \
     socket/mytcpserver.h \
     socket/mytcpsocket.h \
+    socket/myudpserver.h \
     user/userdao.h \
     db/dbutil.h \
     user/user.h \

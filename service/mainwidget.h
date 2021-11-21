@@ -27,6 +27,7 @@ private slots:
 private:
     Ui::MainWidget *ui;
     MyTcpServer *myServer;
+    myUdpServer
 
 };
 
