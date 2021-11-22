@@ -29,6 +29,7 @@ RC_FILE= app.rc
 
 HEADERS += \
     mainwindow.h \
+    net/udpclient.h \
     user/user.h \
     userentity.h \
     widget.h \
@@ -52,6 +53,7 @@ HEADERS += \
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    net/udpclient.cpp \
     user/user.cpp \
     widget.cpp \
     dialog/selfuserinfo.cpp \

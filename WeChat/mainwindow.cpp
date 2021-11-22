@@ -18,7 +18,7 @@
 #include <QListWidgetItem>
 #include <QSqlDatabase>
 #include <db/dbutil.h>
-
+#include <net/udpclient.h>
 #include <QNetworkDatagram>
 
 
@@ -107,20 +107,34 @@ void MainWindow::oneUserbeClicked(User &user)
 void MainWindow::on_sendMessageButton_clicked()
 {
 
+    QUdpSocket client ;
+    client.connectToHost("255.255.255.255",2425,QIODevice::ReadWrite);
+    QString login = "1:XXX:wlz:wlz:IPMSG_BR_ENTRY:";
+    client.write(login.toUtf8());
+    client.flush();
+
     udpSocket = new QUdpSocket(this);
     udpSocket->bind(QHostAddress::LocalHost,2425);
-    udpSocket->connectToHost("192.168.1.12",2425,QIODevice::ReadWrite);
-    QString str =  "1:100:WLZ:WLZ:32: %1 ";
+
 
     QString msg = ui->msgContentEditArea->toPlainText();
      qDebug()<<"发送的内容：" << msg;
-    str.arg(msg);
+   // login = login.arg(msg);
 
-    qDebug()<< str;
+    qDebug()<< "登陆：" <<login;
 
-    udpSocket->write(str.toUtf8());
-    udpSocket->flush();
-    udpSocket = new QUdpSocket(this);
+
+    char *buf = new char[1024];
+    QByteArray *result = new QByteArray();
+    qint64 len = 0;
+    while ( (len = udpSocket->read(buf,udpSocket->pendingDatagramSize())) != -1) {
+        result->append(buf);
+    }
+    QString str = QString(*result);
+
+    qDebug()<< "收到报文："<<str;
+//    QObject::connect(udpSocket, SIGNAL(&QUdpSocket::readyRead),
+//                  this, SLOT((&UdpClient::readdata(udpSocket))));
 
     ui->msgContentEditArea->setText("");
     ui->listWidget_chatMsgContent->addItem(msg);
