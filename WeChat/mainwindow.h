@@ -27,6 +27,8 @@ public:
     ~MainWindow();
 
 
+
+
 private slots:
     void initSocket();
 
@@ -46,6 +48,7 @@ private slots:
 
     void on_sendMessageButton_clicked();
 
+     void readdata(QUdpSocket * client);
 private:
     Ui::MainWindow *ui;
     QList<friendShip> * fris;

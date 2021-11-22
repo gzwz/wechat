@@ -108,35 +108,52 @@ void MainWindow::on_sendMessageButton_clicked()
 {
 
     QUdpSocket client ;
-    client.connectToHost("255.255.255.255",2425,QIODevice::ReadWrite);
-    QString login = "1:XXX:wlz:wlz:IPMSG_BR_ENTRY:";
+    client.connectToHost(QHostAddress::Broadcast,2425,QIODevice::ReadWrite);
+    QString login = "1:100:wlz:wlz:IPMSG_BR_ENTRY:";
+    login = "1:100:xm:xiaoming:32:Hello";
     client.write(login.toUtf8());
     client.flush();
 
+
     udpSocket = new QUdpSocket(this);
-    udpSocket->bind(QHostAddress::LocalHost,2425);
+    udpSocket->bind(QHostAddress::Broadcast,2425);
+
+
+    connect(udpSocket,
+        SIGNAL(&QUdpSocket::readyRead), this, SLOT(&MainWindow::readdata(udpSocket)));
 
 
     QString msg = ui->msgContentEditArea->toPlainText();
-     qDebug()<<"发送的内容：" << msg;
-   // login = login.arg(msg);
+//     qDebug()<<"发送的内容：" << msg;
+//   // login = login.arg(msg);
 
-    qDebug()<< "登陆：" <<login;
+//    qDebug()<< "登陆：" <<login;
 
 
-    char *buf = new char[1024];
-    QByteArray *result = new QByteArray();
-    qint64 len = 0;
-    while ( (len = udpSocket->read(buf,udpSocket->pendingDatagramSize())) != -1) {
-        result->append(buf);
-    }
-    QString str = QString(*result);
+//    char *buf = new char[1024];
+//    QByteArray *result = new QByteArray();
+//    qint64 len = 0;
+//    while ( (len = udpSocket->read(buf,udpSocket->pendingDatagramSize())) != -1) {
+//        result->append(buf);
+//    }
+//    QString str = QString(*result);
 
-    qDebug()<< "收到报文："<<str;
-//    QObject::connect(udpSocket, SIGNAL(&QUdpSocket::readyRead),
+//    qDebug()<< "收到报文："<<str;
+//
+//     QObject::connect(udpSocket, SIGNAL(&QUdpSocket::readyRead),
 //                  this, SLOT((&UdpClient::readdata(udpSocket))));
 
     ui->msgContentEditArea->setText("");
     ui->listWidget_chatMsgContent->addItem(msg);
+
+}
+
+ void MainWindow::readdata(QUdpSocket *client){
+      qDebug() <<" QString(data)";
+         char* data = new char[1024];
+          client->readDatagram(data,client->pendingDatagramSize());
+         qDebug() << QString(data);
+
+
 
 }
